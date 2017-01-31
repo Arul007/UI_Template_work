@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Mercer</title>
+	<link rel="icon" type="images" href="images/favicon.ico">
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Custom CSS -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+
+	<style>
+
+	</style>
+
+</head>
+
+<body>
+
+<div id="wrapper" ng-controller="Summary">
+
+        <!-- Navigation -->
+          <!-- Navigation -->
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Mercer | Retirement Benefit Valuation</a>
+      </div>
+      <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+      <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav side-nav">
+              <li>
+                  <a href="#"><span class="glyphicon glyphicon-home"></span> Home</a>
+              </li>
+              <li id="dropdown" class="active">
+                        <a href="" data-toggle="collapse" data-target="#demo" id="buttonclickdefault"><span class="glyphicon glyphicon-stats"></span> Summary&Updates  </a>
+                        <ul id="demo" class="collapse">
+                          <li>
+                            <div class="row dropdown_sidenavbrand">
+                              <div class="col-xs-9">
+                                <a href="#">Audit Trail Summary</a>
+                              </div>
+                              <div class="col-xs-1  dropdown_sidenav_img" ng-hide="false">
+                                  <i class="fa fa-check-circle" aria-hidden="true"></i>
+                              </div>
+                            </div>
+                          </li>
+                          <li>
+                            <div class="row dropdown_sidenavbrand">
+                              <div class="col-xs-9">
+                                <a href="#">Fields Selection TT RawData</a>
+                              </div>
+                              <div class="col-xs-1  dropdown_sidenav_img" ng-hide="false">
+                                  <i class="fa fa-check-circle" aria-hidden="true"></i>
+                              </div>
+                            </div>
+                          </li>
+                          <li>
+                              <div class="row dropdown_sidenavbrand" id="active_submenu">
+                                <div class="col-xs-9">
+                                  <a href="#">Unique ID Match</a>
+                                </div>
+                                <div class="col-xs-1  dropdown_sidenav_img" ng-hide="true">
+                                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                </div>
+                              </div>
+                          </li>
+                          <li>
+                              <div class="row dropdown_sidenavbrand">
+                                <div class="col-xs-9">
+                                  <a href="#">Consistency Checks</a>
+                                </div>
+                                <div class="col-xs-1  dropdown_sidenav_img" ng-hide="true">
+                                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                </div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="row dropdown_sidenavbrand">
+                                <div class="col-xs-9">
+                                  <a href="#">Sum of Trenches equal to Total Deferred Pension</a>
+                                </div>
+                                <div class="col-xs-1  dropdown_sidenav_img" ng-hide="true">
+                                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                </div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="row dropdown_sidenavbrand">
+                                <div class="col-xs-9">
+                                  <a href="#">Tranches matches Member Service Period</a>
+                                </div>
+                                <div class="col-xs-1  dropdown_sidenav_img" ng-hide="true">
+                                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                </div>
+                              </div>
+                            </li>
+                            <li>
+                              <div class="row dropdown_sidenavbrand">
+                                <div class="col-xs-9">
+                                  <a href="#">Derivations / Calculations</a>
+                                </div>
+                                <div class="col-xs-1  dropdown_sidenav_img" ng-hide="true">
+                                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                </div>
+                              </div>
+                            </li>
+                        </ul>
+              </li>
+
+            <li>
+                <a href="#"><span class="glyphicon glyphicon-random"></span>   Output</a>
+            </li>
+          </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+  </nav>
+        <div class="well well-lg">
+		<form class="formname">
+          <p><b>Unique ID Match <span><sub>( TT_Raw Data.xslx; LT_Raw Data.xslx)</sub></span></b></p>
+          <br>
+           <div class="row small">
+			<div class="col-sm-10" >
+                      <table class="table table-striped table-responsive ">
+					     <tr>
+                            <td>Mismatch Members </td>
+                            <td>{{matchColumn}}</td>
+                            <td><button class="btn btn-success" ng-click="disp()" >Check</button></td>
+                          </tr>
+                          <tr>
+                            <td>Not Matched Members</td>
+                            <td>{{notMatchedColumn}}</td>
+                            <td><button class="btn btn-success" ng-click="disp1()">Check</button></td>
+                          </tr>
+                      </table>
+			</div>
+			</div>
+          <!-- <p>Mismatch - 5</p> -->
+			<div class="row small">
+              <div class="col-sm-8" ng-show="show" >
+                
+                    <table class="table table-striped table-responsive" border="0px">
+                      <tr>
+                        <th class="text-center">TT Raw Data Member ID</th>
+                         <th class="text-center"> LT Snapshot Member ID / Holmes Suggestion </th>
+                      </tr>
+                      <tr ng-repeat="arul in match.slice(((currentPage-1)*pageSize), ((currentPage)*pageSize))">
+                          <td>{{arul.TT_Raw_Data_MemberID}}</td>
+                          <td><input type="text" ng-model="arul.LT_SnapshotMemberID"/></td>
+                      </tr>
+                    </table>
+
+              </div>
+			  <div class="col-sm-4" ng-show="show1" >
+                    <table class="table table-striped table-responsive">
+                      <tr>
+                        <th class="text-center">TT Raw Data Member ID  </th>
+                      </tr>
+                      <tr ng-repeat="arul in match.slice(((currentPage-1)*pageSize), ((currentPage)*pageSize))">
+                        <td><input type="text" ng-model="arul.TT_RawDataMemberID"/></td>
+                      </tr>
+                    </table>
+              </div>
+              </div>
+              <div ng-show="show2" style="text-align:center;">
+          <button class="btn btn-warning" ng-disabled="currentPage == 1" ng-click="currentPage=currentPage-1">
+              Previous
+         </button>
+         {{currentPage}}  of {{numberOfPages()}}
+        <button class="btn btn-warning" ng-disabled="currentPage == numberOfPages()" ng-click="currentPage=currentPage+1"><span glyphicon glyphicon-forward>
+          Next
+        </button>
+      </div>
+		<br>
+          <button  class="btn btn-success pull-right" ng-click="matchs()">Accept</button>
+		<br><br>
+          <a class="btn cancel" href="./feilds.html" role="button"><i class="fa fa-hand-o-left" aria-hidden="true"></i> Back</a>
+          <a class="btn submit pull-right" href="./consistency.html" role="button"><i class="fa fa-hand-o-right" aria-hidden="true"></i> Next</a>
+		  </form>
+        </div>
+
+</div>
+  <!-- /#wrapper -->
+
+  <!-- Jquery.js -->
+  <script src="./js/jquery.js"></script>
+
+  <script>
+      $(document).ready(function () {
+          $("#buttonclickdefault").click();
+      });
+  </script>
+
+  <!-- Bootstrap Core JavaScript -->
+  <script src="./js/bootstrap.min.js"></script>
+
+  <!-- Angular.js -->
+  <script src="./js/angular.min.js"></script>
+
+  <!-- home.js -->
+  <script src="./js/summary.js"></script>
+
+  </body>
+
+  </html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Mercer</title>
+	<link rel="icon" type="images" href="images/favicon.ico">
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Custom CSS -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+
+    <!-- custom style -->
+    <style>
+
+  	</style>
+	<script>
+
+	</script>
+
+</head>
+
+<body ng-app="myApp">
+
+  <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Mercer | Retirement Benefit Valuation</a>
+            </div>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav side-nav ">
+                    <li class="active">
+                        <a href="index.html"><span class="glyphicon glyphicon-home"></span> Home</a>
+                    </li>
+                    <li id="dropdown">
+                              <a href="#"><span class="glyphicon glyphicon-stats"></span> Summary&Updates </a>
+                              <ul id="demo" class="collapse">
+                                  <li>
+                                      <a href="#">Audit Trail Summary</a>
+                                  </li>
+                                  <li>
+                                      <a href="#">Fields Selection TT RawData</a>
+                                  </li>
+                                  <li>
+                                      <a href="#">Unique ID Match</a>
+                                  </li>
+                                  <li>
+                                      <a href="#">Consistency Checks</a>
+                                  </li>
+                                  <li>
+                                      <a href="#">Sum of Trenches equal to Total Deferred Pension</a>
+                                  </li>
+                                  <li>
+                                      <a href="#">Tranches matches Member Service Period</a>
+                                  </li>
+                                  <li>
+                                      <a href="#">Derivations / Calculations </a>
+                                  </li>
+                              </ul>
+                    </li>
+                  <li>
+                      <a href="#"><span class="glyphicon glyphicon-random"></span>   Output</a>
+                  </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+        <div class="well well-lg" style="color:#380000">
+          <form ng-controller="Ctrl" name="formname" class="formname">
+          <p><b>Select Scheme and Data</b></p>
+          <br>
+          <p><b>Scheme</b></p>
+			<table class="table table-striped table-responsive" border="0px" >
+            <tr>
+              <th>Scheme Name</th>
+              <th>Scheme Category</th>
+              <th>Member Type</th>
+              <th>Valuation Date</th>
+            </tr>
+            <tr>
+              <td>
+                <select name="schemes" ng-model="Scheme_name" ng-change="fetchdate()" ng-options="Scheme1.SchemeName for Scheme1 in SchemeName">
+                  <option value="">Select Scheme Name</option>
+                </select>
+              </td>
+              <td>
+                <select name="schemes" ng-model="Scheme_category" ng-options="SchemeCat.SchemeCategory for SchemeCat in SchemeCategory">
+                  <option value="">Select Scheme Category</option>
+                </select>
+              </td>
+              <td>
+                <select name="schemes" ng-model="Member_type" ng-options="scheme.MemberType for scheme in MemberType">
+                  <option value="">Select Member Type</option>
+                </select>
+              </td>
+              <td>
+                <span ng-model="date">{{date}}</span>                                  
+              </td>
+            </tr>
+          </table>
+          <br>
+          <p><b>Data</b></p>
+          <table class="table table-striped table-responsive" border="0px" >
+                    <div class="row">
+                          <tr ng-repeat="i in formData">
+                            <td class="col-sm-3">{{i.formName}} </td>
+                            <td class="col-sm-2 lead">
+                        <div style="position: relative;">
+                        <a class='btn btn-primary' href='javascript:;'> Select
+                        File <input type="file"
+                        style='position: absolute; z-index: 2; top: 0; left: 0; filter: alpha(opacity = 0); -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; opacity: 0; background-color: transparent; color: transparent;'
+                        name="file_source" size="40" multiple
+                        onchange="angular.element(this).scope().getFileDetails(this)">
+                        </a> &nbsp; <span class='label label-info' id="upload-file-info"></span>
+                        </div>
+                       </td>
+                       <td class="col-sm-5">
+                        <span ng-if="fileNames[$index]">FileName :{{fileNames[$index]}}</span>
+                        <span ng-if="!fileNames[$index]">Choose file</span>
+                         </td>
+                          </tr>
+                    </div>
+                </table>
+				<br>
+           <button  type ="button" class="submit btn-lg pull-right" ng-click="submit()">submit</button>
+		<br><br>
+            <br>
+				<a class="btn cancel" href="./index.html" ng-click="cancel()" role="button"><i class="fa fa-hand-o-left" aria-hidden="true"></i> Back</a>
+				<a class="btn submit pull-right" href="summary.html" role="button">Next <i class="fa fa-hand-o-right" aria-hidden="true"></i></a>
+                <!-- <a href="./summary.html" style="text-decoration:none;" type="button" class="submit btn-lg pull-right">Next </button> </a>-->		
+        </form>
+	  </div>
+   </div>
+
+    <!-- Jquery.js -->
+    <script	src="./js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="./js/bootstrap.min.js"></script>
+
+    <!-- Angular.js -->
+    <script src="./js/angular.min.js"></script>
+
+    <!-- home.js -->
+    <script src="./js/home.js"></script>
+
+
+</body>
+</html>

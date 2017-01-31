@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Mercer</title>
+	<link rel="icon" type="images" href="images/favicon.ico">
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Custom CSS -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+
+	  <!-- Jquery.js -->
+  <script src="js/jquery.min.js"></script>
+
+	<style>
+	.popover{
+		color:#FF0000
+		}
+	.formname{
+  	margin: 0px 40px;
+  	}
+	</style>
+
+	<script>
+		$(document).ready(function(){
+			$('[data-toggle="popover"]').popover();
+		});
+    </script>
+</head>
+
+<body ng-app="myApp">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="./index.html">Mercer | Retirement Benefit Valuation</a>
+      </div>
+      <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+      <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav side-nav">
+              <li class="active">
+                  <a href="./index.html"><span class="glyphicon glyphicon-home"></span> Home</a>
+              </li>
+              <li id="dropdown">
+                        <a href="#" ><span class="glyphicon glyphicon-stats"></span> Summary&Updates </a>
+                        <ul id="demo" class="collapse">
+                            <li>
+                                <a href="#">Audit Trail Summary</a>
+                            </li>
+                            <li>
+                                <a href="#">Fields Selection TT RawData</a>
+                            </li>
+                            <li>
+                                <a href="#">Unique ID Match</a>
+                            </li>
+                            <li>
+                                <a href="#">Consistency Checks</a>
+                            </li>
+                            <li>
+                                <a href="#">Sum of Trenches equal to Total Deferred Pension</a>
+                            </li>
+                            <li>
+                                <a href="#">Tranches matches Member Service Period</a>
+                            </li>
+                            <li>
+                                <a href="#">Derivations / Calculations </a>
+                            </li>
+                        </ul>
+              </li>
+
+            <li>
+                <a href="#"><span class="glyphicon glyphicon-random"></span>   Output</a>
+            </li>
+          </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+  </nav>
+
+  <div id="wrapper" ng-controller="Ctrl">
+      <div class="well well-lg" style="color:#380000">
+	  <form  class="formname">
+        <br><br>
+        <table class="table table-bordered table-responsive">
+		 <thead>
+          <tr>
+            <th>Scheme Name</th>
+            <th>Scheme Category</th>
+            <th>Report Status</th>
+            <th>Reconcilation Status</th>
+            <th>Output Status</th>
+          </tr>
+		  </thead>
+		  <tbody ng-repeat="Scheme in Scheme_details">
+		  <tr>
+            <th>{{Scheme.SchemeName}}</th>
+            <th>{{Scheme.SchemeCategory}}</th>
+            <th>{{Scheme.ReporStatus}}</th>
+            <th>{{Scheme.ReconcilationStatus}}</th>
+            <th>{{Scheme.OutputStatus}}</th>
+          </tr>
+		  </tbody>
+        </table>
+        <br><br>
+        Please confirm Pension Benefits are same for LT and TT or not.
+        <br><br>
+
+          <input type="radio" name="somethign" value="true" ng-model="checkboxSelection" /> Yes (Benefits are same for LT and TT)<br>
+           <input type="radio" name="somethign" value="false" ng-model="checkboxSelection" data-trigger="focus"
+		   data-toggle="popover" data-content="If Benefits are different for LT and TT then Doer
+		   needs to prepare the Data Snapshot manually"/> No (Benefits are different for LT and TT)
+
+		<br><br>
+        <p><a class="btn btn-primary btn-md" href="{{link}}" role="button" ng-disabled="isCheckboxSelected('false')">Add  scheme and data</a></p>
+	   </form>
+
+
+      </div>
+
+  </div>
+  <!-- /#wrapper -->
+
+
+  <!-- Bootstrap Core JavaScript -->
+  <script src="js/bootstrap.min.js"></script>
+
+  <!-- Angular.js -->
+  <script src="js/angular.min.js"></script>
+
+  <!-- home.js -->
+  <script src="js/home.js"></script>
+
+</body>
+</html>
