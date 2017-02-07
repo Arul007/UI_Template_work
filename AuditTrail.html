@@ -21,6 +21,9 @@
     <link href="css/sb-admin.css" rel="stylesheet">
 	<style>
 
+	.subActive{
+	 width:194px;
+	}
 	</style>
 
 </head>
@@ -45,23 +48,23 @@
             <div class="collapse navbar-collapse">
                 <ul class="nav navbar-nav side-nav">
                   <li>
-                      <a href="#"><span class="glyphicon glyphicon-home"></span>   Home</a>
+                      <a href="#"><span class="glyphicon glyphicon-home"></span> Home</a>
                   </li>
                   <li id="dropdown" class="active">
                             <a href="" data-toggle="collapse" data-target="#demo" id="buttonclickdefault"><span class="glyphicon glyphicon-stats"></span> Summary&Updates  </a>
                             <ul id="demo" class="collapse">
                               <li>
-                                <div class="row dropdown_sidenavbrand">
+                                <div class="row dropdown_sidenavbrand" id="active_submenu">
                                   <div class="col-xs-9">
                                     <a href="#">Audit Trail Summary</a>
                                   </div>
-                                  <div class="col-xs-1  dropdown_sidenav_img" ng-hide="false">
+                                  <div class="col-xs-1  dropdown_sidenav_img" ng-hide="true">
                                       <i class="fa fa-check-circle" aria-hidden="true"></i>
                                   </div>
                                 </div>
                               </li>
                               <li>
-                                <div class="row dropdown_sidenavbrand" id="active_submenu">
+                                <div class="row dropdown_sidenavbrand">
                                   <div class="col-xs-9">
                                     <a href="#">Fields Selection TT RawData</a>
                                   </div>
@@ -130,15 +133,13 @@
             </div>
             <!-- /.navbar-collapse -->
         </nav>
-
-
         <div class="well well-lg">
 		<form class="formname">
-          <p><b>Fields Selection TT RawData <span><sub>( TT_Raw Data.xslx; LT_Raw Data.xslx)</sub></span></b></p>
+          <p><b>Audit Trail Check Summary - Column Match <span><sub>(LT_Raw Data.xslx; LT_Snapshot.xslx)</sub></span></b></p>
           <br>
-              <div class="col-sm-10 small">
+          <div class="col-sm-10 small">
                       <table class="table table-striped table-responsive">
-					  <tr>
+                          <tr>
                             <td>Matched Columns </td>
                             <td>{{matchColumn}}</td>
                             <td><button class="btn btn-success" ng-click="disp()">Check</button></td>
@@ -152,54 +153,51 @@
 			</div>
 
           <br><br>
-			<div class="row small">
+
+          <div class="row small">
               <div class="col-sm-8" ng-show="show">
                 <!-- <h2 class="sub-header">Subtitle</h2> -->
-                    <table class="table table-striped table-responsive" border="0px">
+                    <table class="table table-striped table-responsive">
                       <tr>
-                        <th class="text-center"> LT Raw Data Columns </th>
-                         <th class="text-center"> TT Raw Data Columns </th>
+                        <th class="text-center"> LT Snapshot Columns </th>
+						<th class="text-center"> LT Raw Data Columns </th>
                       </tr>
-					  <tr>
-                        <th class=""> Member identifier Number </th>
-                         <th class=""> Member identifier Number </th>
-                      </tr>
-                      <tr ng-repeat="amre in feilds.slice(((currentPage-1)*pageSize), ((currentPage)*pageSize))">
-                          <td>{{amre.NI_Number}}</td>
-                          <td><input type="text" ng-model="amre.Member_Identifier"/></td>
+                      
+                      <tr ng-repeat="arul in summary2.slice(((currentPage-1)*pageSize), ((currentPage)*pageSize))">
+                          <td class="text-center">{{arul.LT_Snapshot}}</td>
+						  <td class="text-center"><input type="text" ng-model="arul.LT_Raw_Data"/></td>
                       </tr>
                     </table>
-					 
               </div>
-
-              <div class="col-sm-4" ng-show="show1">
-               <table class="table table-striped table-responsive pull-right" border="0px">
-				   <tr>
-					 <th class="text-center"> LT Snapshot not matched Columns </th>
-				   </tr>
-				   <tr>                     
-					<th class=""> Membership Plan </th>
-					</tr>
-					 <tr ng-repeat="amre in feilds.slice(((currentPage-1)*pageSize), ((currentPage)*pageSize))">
-					<td><input type="text" ng-model="amre.LT_SnapshotNotMatchedColumn"/></td>
-					 </tr>
-                </table>
+			  <div class="col-sm-4" ng-show="show1">
+                <!-- <h2 class="sub-header">Subtitle</h2> -->
+                    <table class="table table-striped table-responsive" border="0px" >
+                      <tr>
+                        <th class="text-center"> LT Snapshot Not Marched Columns </th>
+                      </tr>
+                     
+                      <tr ng-repeat="arul in summary2.slice(((currentPage-1)*pageSize), ((currentPage)*pageSize))">
+                          <td><input type="text" ng-model="arul.LT_Snapshot_Not_Matched_Column"/></td>
+                      </tr>
+                    </table>
               </div>
-              </div>
-			  <div ng-show="show2" style="text-align:center">
-				  <button class="btn btn-warning" ng-disabled="currentPage == 1" ng-click="currentPage=currentPage-1">
-							Previous
-				 </button>
-				 {{currentPage}}  of {{numberOfPages()}}
-				<button class="btn btn-warning" ng-disabled="currentPage == numberOfPages()" ng-click="currentPage=currentPage+1">
-					Next
-				</button>
-			  </div>
+          </div>
+          <div ng-show="show2" style="text-align:center">
+          <button class="btn btn-warning" ng-disabled="currentPage == 1" ng-click="currentPage=currentPage-1">
+              Previous
+         </button>
+         {{currentPage}}  of {{numberOfPages()}}
+        <button class="btn btn-warning" ng-disabled="currentPage == numberOfPages()" ng-click="currentPage=currentPage+1">
+          Next
+        </button>
+      </div>
 			  <br>
-           <button  class="btn btn-success pull-right" ng-click="feild()">Accept</button>
-		<br><br>
-          <a class="btn cancel" href="/AuditTrail.html" role="button"><i class="fa fa-hand-o-left" aria-hidden="true"></i> Back</a>
-          <a class="btn submit pull-right" href="/match.html"  role="button" ><i class="fa fa-hand-o-right" aria-hidden="true"></i> Next</a>
+		  <button  class="btn btn-success pull-right" ng-click="amresh()">Accept</button>
+		  <br>
+		  <br>
+          <a class="btn cancel" href="/summary.html" role="button"><i class="fa fa-hand-o-left" aria-hidden="true"></i> Back</a>
+          <a class="btn submit pull-right" href="/Feilds.html" role="button"><i class="fa fa-hand-o-right" aria-hidden="true"></i> Next</a>
+
 			</form>
         </div>
 
@@ -213,6 +211,10 @@
           $(document).ready(function () {
               $("#buttonclickdefault").click();
           });
+		  window.onbeforeunload = function () {
+		  window.scrollTo(0, 0);
+		}		  
+
       </script>
 
       <!-- Bootstrap Core JavaScript -->

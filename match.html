@@ -161,9 +161,9 @@
                         <th class="text-center">TT Raw Data Member ID</th>
                          <th class="text-center"> LT Snapshot Member ID / Holmes Suggestion </th>
                       </tr>
-                      <tr ng-repeat="arul in match.slice(((currentPage-1)*pageSize), ((currentPage)*pageSize))">
-                          <td>{{arul.TT_Raw_Data_MemberID}}</td>
-                          <td><input type="text" ng-model="arul.LT_SnapshotMemberID"/></td>
+                      <tr ng-repeat="matchmen in match.slice(((currentPage-1)*pageSize), ((currentPage)*pageSize))">
+                          <td>{{matchmen.TT_RAW_MISMATCHED}}</td>
+                          <td><input type="text" ng-model="matchmen.LT_SNAPSHOT_SUGGGESTION"/></td>
                       </tr>
                     </table>
 
@@ -173,8 +173,8 @@
                       <tr>
                         <th class="text-center">TT Raw Data Member ID  </th>
                       </tr>
-                      <tr ng-repeat="arul in match.slice(((currentPage-1)*pageSize), ((currentPage)*pageSize))">
-                        <td><input type="text" ng-model="arul.TT_RawDataMemberID"/></td>
+                      <tr ng-repeat="matchmen in match.slice(((currentPage-1)*pageSize), ((currentPage)*pageSize))">
+                        <td><input type="text" ng-model="matchmen.ADDITIONAL_MEMBERS"/></td>
                       </tr>
                     </table>
               </div>
@@ -191,8 +191,8 @@
 		<br>
           <button  class="btn btn-success pull-right" ng-click="matchs()">Accept</button>
 		<br><br>
-          <a class="btn cancel" href="./feilds.html" role="button"><i class="fa fa-hand-o-left" aria-hidden="true"></i> Back</a>
-          <a class="btn submit pull-right" href="./consistency.html" role="button"><i class="fa fa-hand-o-right" aria-hidden="true"></i> Next</a>
+          <a class="btn cancel" href="/Feilds.html" role="button"><i class="fa fa-hand-o-left" aria-hidden="true"></i> Back</a>
+          <a class="btn submit pull-right" href="/Consistency.html" role="button"><i class="fa fa-hand-o-right" aria-hidden="true"></i> Next</a>
 		  </form>
         </div>
 

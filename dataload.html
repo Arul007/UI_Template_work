@@ -9,9 +9,11 @@
     <meta name="author" content="">
 
     <title>Mercer</title>
-	<link rel="icon" type="images" href="images/favicon.ico">
+	  <link rel="icon" type="images" href="images/favicon.ico">
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="./css/sweetalert.css">
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -126,7 +128,7 @@
                             <td class="col-sm-2 lead">
                         <div style="position: relative;">
                         <a class='btn btn-primary' href='javascript:;'> Select
-                        File <input type="file"
+                        File <input type="file" accept=".xlsx,.csv" 
                         style='position: absolute; z-index: 2; top: 0; left: 0; filter: alpha(opacity = 0); -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; opacity: 0; background-color: transparent; color: transparent;'
                         name="file_source" size="40" multiple
                         onchange="angular.element(this).scope().getFileDetails(this)">
@@ -144,8 +146,8 @@
            <button  type ="button" class="submit btn-lg pull-right" ng-click="submit()">submit</button>
 		<br><br>
             <br>
-				<a class="btn cancel" href="./index.html" ng-click="cancel()" role="button"><i class="fa fa-hand-o-left" aria-hidden="true"></i> Back</a>
-				<a class="btn submit pull-right" href="summary.html" role="button">Next <i class="fa fa-hand-o-right" aria-hidden="true"></i></a>
+				<a class="btn cancel" href="/index.html" ng-click="cancel()" role="button"><i class="fa fa-hand-o-left" aria-hidden="true"></i> Back</a>
+				<a class="btn submit pull-right" href="/summary.html" role="button">Next <i class="fa fa-hand-o-right" aria-hidden="true"></i></a>
                 <!-- <a href="./summary.html" style="text-decoration:none;" type="button" class="submit btn-lg pull-right">Next </button> </a>-->		
         </form>
 	  </div>
@@ -159,6 +161,9 @@
 
     <!-- Angular.js -->
     <script src="./js/angular.min.js"></script>
+
+    <!-- sweet Alert -->
+    <script src="./js/sweetalert.min.js"></script>
 
     <!-- home.js -->
     <script src="./js/home.js"></script>

@@ -29,6 +29,27 @@
 	.formname{
   	margin: 0px 40px;
   	}
+
+  #fa-check{
+    padding-left: 5px;
+    padding-right: 15px;
+    font-size: 18px;
+    color : green;
+  }
+
+  #fa-check1{
+    padding-left: 5px;
+    padding-right: 15px;
+    font-size: 20px;
+    color : red;
+  }
+
+  #btn{
+    color :white;
+    background: #2196F3;
+  }
+
+
 	</style>
 
 	<script>
@@ -50,13 +71,13 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="./index.html">Mercer | Retirement Benefit Valuation</a>
+          <a class="navbar-brand" href="#">Mercer | Retirement Benefit Valuation</a>
       </div>
       <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
       <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav side-nav">
               <li class="active">
-                  <a href="./index.html"><span class="glyphicon glyphicon-home"></span> Home</a>
+                  <a href="#"><span class="glyphicon glyphicon-home"></span> Home</a>
               </li>
               <li id="dropdown">
                         <a href="#" ><span class="glyphicon glyphicon-stats"></span> Summary&Updates </a>
@@ -100,20 +121,29 @@
         <table class="table table-bordered table-responsive">
 		 <thead>
           <tr>
-            <th>Scheme Name</th>
-            <th>Scheme Category</th>
-            <th>Report Status</th>
-            <th>Reconcilation Status</th>
-            <th>Output Status</th>
+            <th class="text-center">Scheme Name</th>
+            <th class="text-center">Scheme Category</th>
+            <th class="text-center">Report Status</th>
+            <th class="text-center">Reconcilation Status</th>
+            <th class="text-center">Output Status</th>
           </tr>
 		  </thead>
 		  <tbody ng-repeat="Scheme in Scheme_details">
 		  <tr>
-            <th>{{Scheme.SchemeName}}</th>
-            <th>{{Scheme.SchemeCategory}}</th>
-            <th>{{Scheme.ReporStatus}}</th>
-            <th>{{Scheme.ReconcilationStatus}}</th>
-            <th>{{Scheme.OutputStatus}}</th>
+            <td class="text-center">{{Scheme.SchemeName}}</td>
+            <td class="text-center">{{Scheme.SchemeCategory}}</td>
+            <td class="text-center" ng-if="Scheme.ReportStatus == 'yes'"> <i id="fa-check" class="fa fa-check-circle" aria-hidden="true"></i><button id="btn" class="btn btn-md">Check</button> </td>
+
+            <td class="text-center" ng-if="Scheme.ReportStatus == 'no'"> <i id="fa-check1" class="fa fa-times-circle-o" aria-hidden="true"></i><button id="btn" class="btn btn-md" ng-disabled="true">Check</button> </td>
+
+            <td class="text-center" ng-if="Scheme.ReconcilationStatus == 'yes'"> <i id="fa-check" class="fa fa-check-circle" aria-hidden="true"></i><button id="btn" class="btn btn-md">Check</button> </td>
+
+            <td class="text-center" ng-if="Scheme.ReconcilationStatus == 'no'"> <i id="fa-check1" class="fa fa-times-circle-o" aria-hidden="true"></i><button id="btn" class="btn btn-md" ng-disabled="true">Check</button> </td>
+
+            <td class="text-center" ng-if="Scheme.OutputStatus == 'yes'"> <i id="fa-check" class="fa fa-check-circle" aria-hidden="true"></i><button id="btn" class="btn btn-md ">Check</button> </td>
+
+            <td class="text-center" ng-if="Scheme.OutputStatus == 'no'"> <i id="fa-check1" class="fa fa-times-circle-o" aria-hidden="true"></i><button id="btn" class="btn btn-md" ng-disabled="true">Check</button> </td>
+
           </tr>
 		  </tbody>
         </table>
@@ -130,7 +160,7 @@
         <p><a class="btn btn-primary btn-md" href="{{link}}" role="button" ng-disabled="isCheckboxSelected('false')">Add  scheme and data</a></p>
 	   </form>
 
-
+ 
       </div>
 
   </div>

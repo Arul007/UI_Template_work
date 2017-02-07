@@ -157,7 +157,7 @@
                  </tr>
 				 <tr>
                  <td>Not Matched Tranches</td>
-                 <td>0</td>
+                 <td>{{notMatchedColumn}}</td>
                  <td><button class="btn btn-success">Check</button></td>
                  </tr>
               </table>
@@ -173,8 +173,8 @@
 				</tr>
              <tr ng-repeat="arul in tranche.slice(((currentPage-1)*pageSize), ((currentPage)*pageSize))">
 				  <td>{{arul.Membership_ID}}</td>
-				  <td>{{arul.Date_Pens_Serv_Commenced}}</td>
-				  <td>{{arul['Pre_06/04/1997']}}</td>         
+				  <td>{{arul.DatePensServCommenced | date : 'dd/MM/yyyy' }}</td>
+				  <td>{{arul.Revaluing}}</td>         
 				  </tr>
 				</table>
 				</div>          
@@ -191,8 +191,8 @@
         <br>
         
 		<br><br>
-          <a class="btn cancel" href="./pension.html" role="button"><i class="fa fa-hand-o-left" aria-hidden="true"></i> Back</a>
-          <a class="btn submit pull-right" href="./derviations_calculations.html" role="button"><i class="fa fa-hand-o-right" aria-hidden="true"></i> Next</a>
+          <a class="btn cancel" href="/pension.html" role="button"><i class="fa fa-hand-o-left" aria-hidden="true"></i> Back</a>
+          <a class="btn submit pull-right" href="/derviations_calculations.html" role="button"><i class="fa fa-hand-o-right" aria-hidden="true"></i> Next</a>
 		  </form>
         </div>
 

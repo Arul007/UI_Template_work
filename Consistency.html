@@ -20,19 +20,11 @@
     <!-- Custom CSS -->
     <link href="css/sb-admin.css" rel="stylesheet">
 	<style>
-	.formname{
-  	margin: 15px 60px;
-  	}
-	input[type="text"]{
-	border:none;
-	background-color: #f5f5f5;
-	width:240px;
-	margin-top:0px;
 
+	input[type="text"]{	
+	width:50px;	
 	}
-  	p{
-	color:#2196F3;
-	}
+
 	</style>
 
 </head>
@@ -159,7 +151,7 @@
 				<table class="table table-striped table-responsive small">
 					<tr ng-repeat="data in consistency.slice(((currentPage-1)*pageSize),((currentPage)*pageSize))">
 					  <td class="col-sm-4">{{data.Table_data}}</td>
-					  <td class="col-sm-4">{{matchColumn1}}</td>
+					  <td class="col-sm-4">{{data.Count}}</td>
 					  <td><button class="btn btn-success" ng-click="test(data.Table_data)">Check</button></td>
 					</tr>
 			  </table>
@@ -180,40 +172,42 @@
 		<p> Column details for Mismatches / Blanks / Negatives with HOLMES Suggestions</p>
 		<br>
 		<div class="row small" ng-show="table">
-		<div class="col-sm-12">
+		<div class="col-sm-10">
           <table class="table table-striped table-responsive">
             <tr>
-              <th>Membership ID</th>
-              <th>Name</th>
-              <th>TT Raw Data</th>
-              <th>LT Raw Data</th>
-              <th>Suggested Data / LT Snapshot</th>
+              <th class="text-center">Membership ID</th>
+              <th class="text-center">Name</th>
+              <th class="text-center">TT Raw Data</th>
+              <th class="text-center">LT Raw Data</th>
+              <th class="text-center">Suggested Data / LT Snapshot</th>
             </tr>
 			<tr ng-repeat="data in consistbelowtab.slice(((currentPage1-1)*pageSize),((currentPage1)*pageSize))">
-              <td>{{data.Membership_ID}}</td>
-              <td>{{data.Name}}</td>
-              <td>{{data.TT_Raw_Data}}</td>
-              <td>{{data.LT_Raw_Data}}</td>
-              <td>{{data.Suggested_Data}}</td>
+              <td class="text-center">{{data.Membership_ID}}</td>
+              <td class="text-center">{{data.Name}}</td>
+              <td class="text-center"><input type="text" ng-model="data.TT_Raw_Data"></td>
+              <td class="text-center"><input type="text" ng-model="data.LT_Raw_Data"/></td>
+              <td class="text-center"><input type="text" ng-model="data.Suggested_Data"/></td>
               </tr>
             </table>
-			</div>
-      <div style="text-align:center;">
+			<br>
+			<div style="text-align:center;">
           <button class="btn btn-warning"  ng-disabled="currentPage1 == 1" ng-click="currentPage1=currentPage1-1">
               Previous
-         </button>
-         {{currentPage1}}  of  {{numberOfPages1()}}
-        <button class="btn btn-warning" ng-disabled="currentPage1 == numberOfPages1()" ng-click="currentPage1=currentPage1+1">
-          Next
-        </button>
+          </button>
+               {{currentPage1}}  of  {{numberOfPages1()}}
+          <button class="btn btn-warning" ng-disabled="currentPage1 == numberOfPages1()" ng-click="currentPage1=currentPage1+1">
+              Next
+          </button>
       </div>
+			</div>
+      
 		</div>
 		<!-- Sencond table END  -->
 		 <br>
         <button  class="btn btn-success pull-right" ng-click="consistency_change()">Accept</button>
 		<br><br>
-          <a class="btn cancel" href="./match.html" role="button"><i class="fa fa-hand-o-left" aria-hidden="true"></i> Back</a>
-          <a class="btn submit pull-right" href="pension.html" role="button"><i class="fa fa-hand-o-right" aria-hidden="true"></i> Next</a>
+          <a class="btn cancel" href="/match.html" role="button"><i class="fa fa-hand-o-left" aria-hidden="true"></i> Back</a>
+          <a class="btn submit pull-right" href="/pension.html" role="button"><i class="fa fa-hand-o-right" aria-hidden="true"></i> Next</a>
 		  </form>
         </div>
 

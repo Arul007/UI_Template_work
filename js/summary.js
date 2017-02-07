@@ -1,7 +1,7 @@
 var app = angular.module('myApp',[])
 .controller('Summary' ,function($scope,$http,$location,$window,$filter) {
 	
-	//********************* Universal fun **********************/
+	//********************* Universal function **********************/
 				// Page Navigation
 				$scope.show=false;
 				$scope.show1=false;
@@ -40,34 +40,39 @@ var app = angular.module('myApp',[])
 					$scope.show2=false;	
 				}
 		};
-		
+		//console.log($window.location.pathname);
 		_onpageload();
 		function _onpageload(){
 			if($window.location.pathname == '/summary.html'){
 			 summarypage();
 			
-				//console.log($window.location.pathname);
+				console.log($window.location.pathname);
 			}	
-			if($window.location.pathname == '/AuditTrailSummary2.html'){
-			 summary2page();
+			if($window.location.pathname == '/AuditTrail.html'){
+			 auditTrail();
              
-				//console.log($window.location.pathname);
+				console.log($window.location.pathname);
 			}
 			if($window.location.pathname == '/Feilds.html'){
 			 feilds();
-				//console.log($window.location.pathname);
+				console.log($window.location.pathname);
 			}
 			if($window.location.pathname == '/match.html'){
 			 match();
-				//console.log($window.location.pathname);
+				console.log($window.location.pathname);
 			}
-			if($window.location.pathname == '/consistency.html'){
+			if($window.location.pathname == '/Consistency.html'){
 			 consistency();
-				//console.log($window.location.pathname);
+				console.log($window.location.pathname);
+			}
+			if($window.location.pathname == '/pension.html'){
+			holmesSuggestion();
+			 pension();
+				console.log($window.location.pathname);
 			}
 			if($window.location.pathname == '/tranches.html'){
 			 tranches();
-				//console.log($window.location.pathname);
+				console.log($window.location.pathname);
 			}
 			if($window.location.pathname == '/derviations_calculations.html'){
 			 derivation();
@@ -84,15 +89,15 @@ var app = angular.module('myApp',[])
 			  .then(function(response) {
             // alert("Success");
             $scope.summary = response.data.results;
-			//console.log(Object.keys($scope.ltdata));
+			console.log($scope.summary);
 			var ltdatalen =  $scope.summary;
 			var EmpCount = 0;
 			var EmpCount1 = 0;
             var max = 0;
             var max1 = 0;			
 			for(var p = 0; p<ltdatalen.length; p++){		
-			  max = (ltdatalen[p].Employee_ID_Number != null) ?  EmpCount++ : max;
-              max1 = (ltdatalen[p].New_Additional_Matches != null) ?  EmpCount1++ : max1;
+			  max = (ltdatalen[p].LT_SNAP != null) ?  EmpCount++ : max;
+              max1 = (ltdatalen[p].ADDITIONAL_MEMBERS != null) ?  EmpCount1++ : max1;
 			}
 			  //console.log('length', EmpCount, EmpCount1);
 			  $scope.matchColumn = EmpCount;
@@ -120,9 +125,9 @@ var app = angular.module('myApp',[])
 
 // *************** AuditTrail.html *******************************
 				// Data coming from excel
-		function summary2page(){
+		function auditTrail(){
 			//console.log("poProcessRun");
-  			$http.get("http://localhost:8008/summary2")
+  			$http.get("http://localhost:8008/audit")
 			  .then(function(response){
             $scope.summary2 = response.data;
 			// console.log($scope.summary2);
@@ -156,13 +161,13 @@ var app = angular.module('myApp',[])
   			 });
   		};
 		
-// *************** dataload.html END *************************
+// *************** AuditTrail.html END *************************
 
 // *************** feilds.html *******************************
 
 			function feilds(){
 				//console.log("feilds");
-				$http.get("http://127.0.0.1:8008/feilds")
+				$http.get("http://127.0.0.1:8008/feilddata")
 				  .then(function(response){
 				$scope.feilds = response.data;				 
 			    var ltdatalen =  $scope.feilds;
@@ -211,8 +216,8 @@ var app = angular.module('myApp',[])
 				var max = 0;
 				var max1 = 0;			
 				for(var p = 0; p<ltdatalen.length; p++){		
-				  max = (ltdatalen[p].TT_Raw_Data_MemberID != null) ?  matchColumn++ : max;
-				  max1 = (ltdatalen[p].TT_RawDataMemberID != null) ?  notMatchedColumn++ : max1;
+				  max = (ltdatalen[p].TT_RAW_MISMATCHED != null) ?  matchColumn++ : max;
+				  max1 = (ltdatalen[p].ADDITIONAL_MEMBERS != null) ?  notMatchedColumn++ : max1;
 				}
 				  console.log('length', matchColumn, notMatchedColumn);
 				  $scope.matchColumn = matchColumn;
@@ -238,7 +243,7 @@ var app = angular.module('myApp',[])
 // *************** match.html END *******************************
 
 // *************** Consistency Check ****************************
-
+		// Top table Data 
 		function consistency(){ 
 			$scope.currentPage1=1;
 			$scope.pageSize1 = 5;			
@@ -259,10 +264,24 @@ var app = angular.module('myApp',[])
 			$scope.numberOfPages1=function(){
                return Math.ceil($scope.matchColumn1/$scope.pageSize);                
 			}
-			
-		// Data changed by the Doer's in the consistency page:
-		$scope.test=function(raw){
-			alert(raw);
+					
+		// This function informs backend to show the respective call table
+		$scope.test = function(raw){
+			var raw = {
+				Doersneedexcel: raw
+			}
+			//BottomTable();	
+			//alert(raw);
+			var res = $http.post('http://127.0.0.1:8008/consist', raw);
+			res.then(function(data, status, headers, config) {
+  			 	// alert(data);
+			if(data.statusText=="OK"){
+				BottomTable();				
+			  }				
+  			 });
+		   }
+			 // Bottom table show data on click of uper $scope.test function success
+		function BottomTable(){
 			$scope.table ="true";
 			$http.get("http://127.0.0.1:8008/consistencydata")
 			  .then(function(response){
@@ -282,7 +301,44 @@ var app = angular.module('myApp',[])
 // *************** Consistency Check.html END ******************
 
 // *************** Pension.html ********************************
-
+		
+	function holmesSuggestion(){		
+			$http.get("jsonfile/holmesSuggestion.json")
+			  .then(function(response) {
+				  $scope.suggestion = response.data;
+				  console.log($scope.suggestion);
+				  //alert(data);
+			  });
+	}
+	function pension(){       	
+           $http.get("http://127.0.0.1:8008/SumOftranches")
+				   .then(function(response){				
+				$scope.pension = response.data;	
+				//console.log($scope.pension);
+			    var ltdatalen =  $scope.pension;
+				var matchColumn = 0;				
+				var max = 0;		
+				for(var p = 0; p<ltdatalen.length; p++){		
+				 max = (ltdatalen[p].EmployeeIDNumber != null) ?  matchColumn++ : max;	
+				}				 
+				  $scope.matchColumn = matchColumn;				 
+					//console.log('tranches',matchColumn)
+				 });
+				};
+		$scope.pendata = function(){
+			var pendata = $scope.pension;
+			console.log(pendata);
+			 //var amresh = $scope.summary2;
+			//console.log(amresh);
+  			var res = $http.post('http://127.0.0.1:8008/summary2DataChanged', pendata);
+			res.then(function(data, status, headers, config) {
+  			 	// alert(data);
+  				console.log(data);
+  			 	$scope.message = data;
+				
+  			 });
+			
+		}
 
 
 
@@ -302,12 +358,12 @@ var app = angular.module('myApp',[])
 				var max = 0;
 				var max1 = 0;			
 				for(var p = 0; p<ltdatalen.length; p++){		
-				 max = (ltdatalen[p].Date_Pens_Serv_Commenced != null) ?  matchColumn++ : max;	
-				 //max1 = (ltdatalen[p].Revaluing != null) ?  notMatchedColumn++ : max1;
+				 max = (ltdatalen[p].DatePensServCommenced != null) ?  matchColumn++ : max;	
+				 max1 = (ltdatalen[p].Revaluing != null) ?  notMatchedColumn++ : max1;
 				}				 
 				  $scope.matchColumn = matchColumn;
-				 // $scope.notMatchedColumn = notMatchedColumn;
-					console.log('tranches',matchColumn, notMatchedColumn);
+				  $scope.notMatchedColumn = notMatchedColumn;
+					console.log('tranches',matchColumn,notMatchedColumn )
 				 });
 				};
 
@@ -315,6 +371,15 @@ var app = angular.module('myApp',[])
 // *************** Tranches.html END *******************************
 
 // *************** Derivation.html *******************************
+
+		  $scope.finalhomepagecheck = function(){
+				//alert("FinalHomePageCheckupdated");
+				var check = $http.get('http://127.0.0.1:8008/homepagestatusupdate');
+				check.then(function(data, status, headers, config) {
+					console.log(data);
+				 });
+				$scope.link = "/output.html";
+		     }; 
 
        function derivation(){       	
            $http.get("http://127.0.0.1:8008/derivation")
@@ -332,15 +397,10 @@ var app = angular.module('myApp',[])
 				 });
 				};
 		$scope.deri = function(){
-			alert("Hi Devi!");
+			alert("Hi DeviA!");
 			
 		}
 
 // *************** Derivation.html END *******************************
-
-
-
-
-
-
+		
 }); 

@@ -140,7 +140,7 @@
                       <table class="table table-striped">
                           <tr>
                             <td>Matched Members</td>
-                            <td>7</td>
+                            <td>{{notMatchedColumn}}</td>
                             <td></td>
                           </tr>
                           <tr>
@@ -171,10 +171,10 @@
                         <th> Employee ID Number</th>
                         <th> Member Identifier</th>
                       </tr>
-                      <tr ng-repeat="arul in summary.slice(((currentPage-1)*pageSize), ((currentPage)*pageSize))">
+                      <tr ng-repeat="misMacthed in summary.slice(((currentPage-1)*pageSize), ((currentPage)*pageSize))">
                           <td><span data-toggle="tooltip" title="Employee ID Number">
-						  {{arul.Employee_ID_Number}}</span></td>
-                          <td><input type="text" ng-model="arul.Member_Identifier_No"/></td>
+						  {{misMacthed.LT_SNAP}}</span></td>
+                          <td><input type="text" ng-model="misMacthed.LT_RAW_MISMATCH"/></td>
                         </tr>
                     </table>
 
@@ -187,8 +187,8 @@
                       </tr>
                         <th> Employee ID Number</th>
                       </tr>
-                       <tr ng-repeat="arul in summary.slice(((currentPage-1)*pageSize), ((currentPage)*pageSize))">
-                          <td><input type="text" ng-model="arul.New_Additional_Matches"/></td>
+                       <tr ng-repeat="misMacthed in summary.slice(((currentPage-1)*pageSize), ((currentPage)*pageSize))">
+                          <td><input type="text" ng-model="misMacthed.ADDITIONAL_MEMBERS"/></td>
                       </tr>
                     </table>
                   </div>
@@ -207,8 +207,8 @@
 		   <button  class="btn btn-success pull-right" ng-click="Lteditfun()">Accept</button>
 		  <br>
 		  <br>
-          <a class="btn cancel" href="./dataload.html" role="button"><i class="fa fa-hand-o-left" aria-hidden="true"></i> Back</a>
-          <a href="./AuditTrailSummary2.html" class="btn submit pull-right" role="button" ><i class="fa fa-hand-o-right" aria-hidden="true"></i> Next</a>
+          <a class="btn cancel" href="/dataload.html" role="button"><i class="fa fa-hand-o-left" aria-hidden="true"></i> Back</a>
+          <a href="/AuditTrail.html" class="btn submit pull-right" role="button" ><i class="fa fa-hand-o-right" aria-hidden="true"></i> Next</a>
 
 			</form>
         </div>
